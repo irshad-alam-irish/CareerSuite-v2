@@ -25,7 +25,7 @@ export default function GrowthCommunitySection() {
                         Explore AI-powered planning →
                     </a>
                     <p className="text-sm text-gray-500 mt-4">
-                        Trusted by future-ready teams worldwide
+                        Built for modern teams that value structure and momentum
                     </p>
                 </motion.div>
 
