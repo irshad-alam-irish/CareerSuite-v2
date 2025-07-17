@@ -4,6 +4,7 @@ import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { PlayCircle } from "lucide-react";
 import { useState, useEffect } from "react";
 import BookDemoForm from "./BookDemoForm";
+// import AnimatedWave from "@/components/AnimatedWave";
 
 const scenarios = [
     {
@@ -29,11 +30,40 @@ const scenarios = [
     }
 ];
 
-const transition = { duration: 0.8, ease: "easeInOut" };
+const videos = [
+    {
+        id: 1,
+        title: "Career Recommender",
+        poster: "/web-1.png",
+        src: "/demo1.mp4"
+    },
+    {
+        id: 2,
+        title: "Learning Tracker",
+        poster: "/web-2.png",
+        src: "/demo2.mp4"
+    },
+    {
+        id: 3,
+        title: "Smart Scheduler",
+        poster: "/web-3.png",
+        src: "/demo3.mp4"
+    }
+];
+
+const transition = { duration: 0.6, ease: "easeInOut" };
 
 export default function LandingPage() {
     const [currentScenario, setCurrentScenario] = useState(0);
-    const [open, setOpen] = useState(false); // 🟡 control the dialog
+    const [open, setOpen] = useState(false);
+    const [activeVideo, setActiveVideo] = useState(1);
+
+    useEffect(() => {
+        const interval = setInterval(() => {
+            setActiveVideo((prev) => (prev % videos.length) + 1);
+        }, 6000);
+        return () => clearInterval(interval);
+    }, []);
 
     useEffect(() => {
         const interval = setInterval(() => {
@@ -48,7 +78,7 @@ export default function LandingPage() {
         <section
             className="min-h-[calc(100vh-72px)] w-full flex items-center justify-center px-6 py-16"
             style={{
-                background: "linear-gradient(135deg, #ffffff 0%, #e3f0ff 40%, #d0e7ff 100%)",
+                background: "radial-gradient(circle at top left, #e0f2fe, #e0e7ff, #f5f3ff)",
                 fontFamily: "Inter, sans-serif"
             }}
         >
@@ -63,23 +93,27 @@ export default function LandingPage() {
                     >
                         AI Powered
                     </motion.div>
+
                     <motion.h1
                         initial={{ opacity: 0, y: 10 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.2, ...transition }}
-                        className="text-4xl md:text-5xl font-extrabold text-gray-800 leading-tight"
+                        className="text-4xl md:text-5xl font-extrabold text-gray-900 leading-tight"
                     >
-                        Empowering Talent <br />
-                        for the <span className="text-[#9333ea]">Future</span>
+                        Elevate Your <br />
+                        <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#2563eb] to-[#9333ea]">
+                            Professional Journey
+                        </span>
                     </motion.h1>
 
                     <motion.p
                         initial={{ opacity: 0, y: 10 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.4, ...transition }}
-                        className="text-base md:text-lg text-gray-600 max-w-xl"
+                        className="text-base md:text-lg text-gray-600 font-medium max-w-xl"
                     >
-                        Unlock personalized career journeys with <span className="text-[#2563eb] font-semibold">AI-powered insights</span>, skills analysis, and real-time dashboards.
+                        Connect with opportunities, showcase your skills, and take the next step
+                        in your career with <span className="text-[#2563eb] font-semibold">CareerSuite's</span> comprehensive platform.
                     </motion.p>
 
                     <motion.div
@@ -90,83 +124,70 @@ export default function LandingPage() {
                     >
                         <Button
                             onClick={() => setOpen(true)}
-                            className="bg-[#1F1F2F] text-white hover:bg-[#2F2F3F]"
+                            className="bg-gradient-to-r from-[#2563eb] to-[#9333ea] text-white px-6 py-2 rounded-md hover:opacity-90"
                         >
                             Book Demo
                         </Button>
 
-                        <Button variant="ghost" className="text-[#1f1f2f] hover:underline flex items-center gap-2">
+                        <Button
+                            variant="ghost"
+                            className="text-[#1f1f2f] hover:underline flex items-center gap-2"
+                        >
                             <PlayCircle className="w-5 h-5" />
                             Watch Demo
                         </Button>
                     </motion.div>
                 </div>
 
-                {/* RIGHT */}
-                <motion.div
-                    initial={{ opacity: 0, scale: 0.95 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ delay: 0.8, ...transition }}
-                    className="w-full h-[500px] bg-gradient-to-br from-[#ebf5fa] via-[#e3f0ff] to-[#ffffff] rounded-xl shadow-inner relative overflow-hidden"
-                >
-                    <AnimatePresence mode="wait">
+                {/* RIGHT: Smooth Collapsible Auto-Switching Video Cards */}
+                <div className="flex gap-4 justify-center items-start">
+                    {videos.map((video) => (
                         <motion.div
-                            key={currentScenario}
-                            initial={{ opacity: 0, x: 100 }}
-                            animate={{ opacity: 1, x: 0 }}
-                            exit={{ opacity: 0, x: -100 }}
+                            key={video.id}
+                            layout
                             transition={transition}
-                            className="absolute inset-2 flex flex-col items-center justify-center text-center"
+                            onClick={() => setActiveVideo(video.id)}
+                            className={`relative cursor-pointer overflow-hidden rounded-2xl shadow-md bg-white border ${activeVideo === video.id ? "w-64 h-80" : "w-24 h-40"
+                                } transition-all duration-700 ease-in-out`}
+                            initial={{ opacity: 0.7, scale: 0.95 }}
+                            animate={{ opacity: 1, scale: 1 }}
+                            exit={{ opacity: 0.7, scale: 0.95 }}
                         >
-                            <motion.h3
-                                className="text-xl font-bold text-gray-800 mb-3"
-                                initial={{ opacity: 0, y: -20 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                transition={{ delay: 0.2, ...transition }}
-                            >
-                                {current.title}
-                            </motion.h3>
-
-                            <motion.div
-                                className="flex items-center justify-center w-full mb-2"
-                                initial={{ opacity: 0, scale: 0.9 }}
-                                animate={{ opacity: 1, scale: 1 }}
-                                transition={{ delay: 0.4, ...transition }}
-                                whileHover={{ scale: 1.02 }}
-                            >
-                                <img
-                                    src={current.image}
-                                    alt={current.title}
-                                    className="w-full h-auto object-contain"
-                                />
-                            </motion.div>
-
-                            <motion.p
-                                className="text-gray-600 text-sm max-w-sm leading-relaxed"
-                                initial={{ opacity: 0, y: 20 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                transition={{ delay: 0.6, ...transition }}
-                            >
-                                {current.description}
-                            </motion.p>
+                            <AnimatePresence mode="wait">
+                                {activeVideo === video.id ? (
+                                    <motion.video
+                                        key={`video-${video.id}`}
+                                        src={video.src}
+                                        controls
+                                        autoPlay
+                                        muted
+                                        className="w-full h-full object-cover"
+                                        initial={{ opacity: 0 }}
+                                        animate={{ opacity: 1 }}
+                                        exit={{ opacity: 0 }}
+                                        transition={{ duration: 0.4 }}
+                                    />
+                                ) : (
+                                    <motion.img
+                                        key={`poster-${video.id}`}
+                                        src={video.poster}
+                                        alt={video.title}
+                                        className="w-full h-full object-cover"
+                                        initial={{ opacity: 0 }}
+                                        animate={{ opacity: 1 }}
+                                        exit={{ opacity: 0 }}
+                                        transition={{ duration: 0.3 }}
+                                    />
+                                )}
+                            </AnimatePresence>
                         </motion.div>
-                    </AnimatePresence>
-
-                    <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex gap-2">
-                        {scenarios.map((_, i) => (
-                            <button
-                                key={i}
-                                onClick={() => setCurrentScenario(i)}
-                                className={`w-2 h-2 rounded-full transition-all duration-300 ${i === currentScenario ? 'bg-blue-500' : 'bg-gray-300'}`}
-                            />
-                        ))}
-                    </div>
-                </motion.div>
+                    ))}
+                </div>
             </div>
 
-            {/* ✅ MODAL */}
+            {/* MODAL */}
             <Dialog open={open} onOpenChange={setOpen}>
-                <DialogContent className="max-w-xl p-0 rounded-2xl overflow-hidden">
+                <DialogContent className="max-w-md bg-white rounded-2xl shadow-lg p-6">
                     <BookDemoForm open={open} onOpenChange={setOpen} showTrigger={false} />
                 </DialogContent>
             </Dialog>

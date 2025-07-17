@@ -46,7 +46,6 @@ import {
     DialogDescription,
 } from "@/components/ui/dialog";
 
-// BookDemoForm component integrated directly
 const BookDemoForm = ({ triggerText = "Book Demo" }) => {
     const [open, setOpen] = useState(false);
     const [formData, setFormData] = useState({
@@ -68,7 +67,6 @@ const BookDemoForm = ({ triggerText = "Book Demo" }) => {
     const handleSubmit = (e) => {
         e.preventDefault();
         setSubmitted(true);
-        // Close dialog after 2 seconds
         setTimeout(() => {
             setOpen(false);
             setSubmitted(false);
@@ -84,16 +82,14 @@ const BookDemoForm = ({ triggerText = "Book Demo" }) => {
     return (
         <Dialog open={open} onOpenChange={setOpen}>
             <DialogTrigger asChild>
-                <Button className="bg-[#1F1F2F] text-white hover:bg-[#2F2F3F]">
+                <Button className="bg-[#1F1F2F] text-white hover:bg-[#2F2F3F] font-inter text-sm">
                     {triggerText}
                 </Button>
             </DialogTrigger>
-            <DialogContent className="max-w-xl rounded-2xl bg-white p-6 sm:p-10 font-sans">
+            <DialogContent className="max-w-xl rounded-2xl bg-white p-6 sm:p-10 font-inter">
                 <DialogHeader>
                     <DialogTitle className="text-2xl font-bold text-[#1e1e2f]">
-                        {submitted
-                            ? "Success!"
-                            : "We're thrilled to connect!"}
+                        {submitted ? "Success!" : "We're thrilled to connect!"}
                     </DialogTitle>
                     <DialogDescription className="text-gray-600 text-sm mt-1">
                         {submitted
@@ -101,7 +97,6 @@ const BookDemoForm = ({ triggerText = "Book Demo" }) => {
                             : "Let's take the first step toward smarter career growth."}
                     </DialogDescription>
                 </DialogHeader>
-
                 {!submitted ? (
                     <div className="space-y-5 mt-6">
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -173,114 +168,96 @@ const BookDemoForm = ({ triggerText = "Book Demo" }) => {
     );
 };
 
-const Navbar1 = ({
-    logo = {
-        url: "/",
-        src: "/logo.svg",
-        alt: "CareerSuite Logo",
-        title: "CareerSuite",
-    },
-    menu = [
-        { title: "Home", url: "#home" },
+const Navbar1 = () => {
+    const menu = [
+        { title: "Home", url: "/" },
         {
             title: "Features",
-            url: "#features",
             items: [
                 {
                     title: "Talent Analytics",
                     description: "Real-time dashboards and workforce insights",
-                    icon: <LineChart className="size-5 shrink-0" />,
+                    icon: <LineChart className="size-5" />,
                     url: "#analytics",
                 },
                 {
                     title: "Upskilling Programs",
                     description: "Tailored learning paths based on skill gaps",
-                    icon: <Sparkles className="size-5 shrink-0" />,
+                    icon: <Sparkles className="size-5" />,
                     url: "#upskilling",
                 },
                 {
                     title: "Career Planning",
-                    description: "Sustainable and personalized growth strategies",
-                    icon: <BookOpenCheck className="size-5 shrink-0" />,
+                    description: "Personalized growth strategies",
+                    icon: <BookOpenCheck className="size-5" />,
                     url: "#career",
                 },
                 {
                     title: "Talent Demand Management",
-                    description: "Forecast and plan organizational skill needs",
-                    icon: <Network className="size-5 shrink-0" />,
+                    description: "Forecast organizational skill needs",
+                    icon: <Network className="size-5" />,
                     url: "#demand",
                 },
                 {
                     title: "Secure & Scalable",
                     description: "Enterprise-grade security and architecture",
-                    icon: <ShieldCheck className="size-5 shrink-0" />,
+                    icon: <ShieldCheck className="size-5" />,
                     url: "#security",
                 },
             ],
         },
         {
             title: "FAQ",
-            url: "#faq",
             items: [
                 {
                     title: "Why CareerSuite?",
-                    description:
-                        "We are the first AI-powered platform that transforms traditional career development into intelligent, data-driven growth strategies",
-                    icon: <HelpCircle className="size-5 shrink-0" />,
+                    description: "First AI-powered career platform",
+                    icon: <HelpCircle className="size-5" />,
                     url: "#why-careersuite",
                 },
                 {
                     title: "What makes us different?",
-                    description:
-                        "Our proprietary AI algorithms analyze skills gaps and create personalized learning paths that adapt in real-time",
-                    icon: <Brain className="size-5 shrink-0" />,
+                    description: "Real-time skill gap learning paths",
+                    icon: <Brain className="size-5" />,
                     url: "#what-different",
                 },
                 {
                     title: "How do we scale globally?",
-                    description:
-                        "Built for enterprise-scale with multi-language support, regional compliance, and cultural adaptability",
-                    icon: <Globe className="size-5 shrink-0" />,
+                    description: "Multi-language and regional support",
+                    icon: <Globe className="size-5" />,
                     url: "#global-scale",
                 },
             ],
         },
         {
             title: "About Us",
-            url: "#about",
             items: [
                 {
                     title: "Our Mission",
-                    description:
-                        "Empowering organizations to unlock human potential through intelligent career development",
-                    icon: <Target className="size-5 shrink-0" />,
+                    description: "Empowering growth through AI",
+                    icon: <Target className="size-5" />,
                     url: "#mission",
                 },
                 {
                     title: "Our Team",
-                    description:
-                        "Meet the passionate professionals behind CareerSuite's innovative solutions",
-                    icon: <Users className="size-5 shrink-0" />,
+                    description: "Meet the people behind CareerSuite",
+                    icon: <Users className="size-5" />,
                     url: "#team",
                 },
                 {
                     title: "Success Stories",
-                    description:
-                        "Discover how we've transformed careers and organizations worldwide",
-                    icon: <Award className="size-5 shrink-0" />,
+                    description: "How we transformed careers",
+                    icon: <Award className="size-5" />,
                     url: "#success",
                 },
             ],
         },
         { title: "Contact Us", url: "#contact" },
-    ],
-    auth = {
-        demo: { title: "Book Demo", url: "#book-demo" },
-    },
-}) => {
+    ];
+
     return (
         <section
-            className="py-4 border-b border-[#dcdcdc] vh"
+            className="py-4 border-b border-[#dcdcdc]"
             style={{
                 height: "70px",
                 fontFamily: "Inter, sans-serif",
@@ -288,42 +265,32 @@ const Navbar1 = ({
                     "linear-gradient(135deg, #d0e7ff 0%, #e3f0ff 60%, #ebf5fa 100%)",
             }}
         >
-            <style>
-                {`
-          @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
-          body {
-            font-family: 'Inter', sans-serif;
-          }
-        `}
-            </style>
             <div className="container max-w-screen-xl mx-auto px-4">
-                {/* Desktop Nav */}
-                <nav className="hidden justify-between lg:flex items-center">
+                <nav className="hidden lg:flex justify-between items-center">
                     <div className="flex items-center gap-6">
-                        <a href={logo.url} className="flex items-center gap-2">
-                            <span className="text-2xl font-bold tracking-tight">
-                                <span className="text-[#2563eb]">Career</span>
-                                <span className="text-black">Suite</span>
-                            </span>
+                        <a href="/" className="flex items-center gap-2">
+                            <img
+                                src="/logo2.png"
+                                alt="CareerSuite Logo"
+                                className="h-[40px] rounded-[5px]"
+                            />
                         </a>
                         <NavigationMenu>
-                            <NavigationMenuList className="text-[15px] font-medium text-black space-x-2">
+                            <NavigationMenuList className="text-sm font-medium text-black space-x-2">
                                 {menu.map((item) => renderMenuItem(item))}
                             </NavigationMenuList>
                         </NavigationMenu>
                     </div>
-                    <div className="flex gap-2">
-                        <BookDemoForm triggerText={auth.demo.title} />
-                    </div>
+                    <BookDemoForm />
                 </nav>
 
                 {/* Mobile Nav */}
                 <div className="block lg:hidden">
-                    <div className="flex items-center justify-between">
-                        <a href={logo.url} className="flex items-center gap-2">
+                    <div className="flex justify-between items-center">
+                        <a href="/" className="flex items-center gap-2">
                             <span className="text-xl font-bold tracking-tight">
                                 <span className="text-[#2563eb]">Career</span>
-                                <span className="text-black">Suite</span>
+                                <span className="text-[#7c3aed]">Suite</span>
                             </span>
                         </a>
                         <Sheet>
@@ -335,10 +302,10 @@ const Navbar1 = ({
                             <SheetContent className="overflow-y-auto">
                                 <SheetHeader>
                                     <SheetTitle>
-                                        <a href={logo.url} className="flex items-center gap-2">
+                                        <a href="/" className="flex items-center gap-2">
                                             <span className="text-xl font-bold tracking-tight">
                                                 <span className="text-[#2563eb]">Career</span>
-                                                <span className="text-black">Suite</span>
+                                                <span className="text-[#7c3aed]">Suite</span>
                                             </span>
                                         </a>
                                     </SheetTitle>
@@ -347,13 +314,11 @@ const Navbar1 = ({
                                     <Accordion
                                         type="single"
                                         collapsible
-                                        className="flex w-full flex-col gap-4"
+                                        className="flex flex-col w-full gap-4"
                                     >
                                         {menu.map((item) => renderMobileMenuItem(item))}
                                     </Accordion>
-                                    <div className="flex flex-col gap-3">
-                                        <BookDemoForm triggerText={auth.demo.title} />
-                                    </div>
+                                    <BookDemoForm />
                                 </div>
                             </SheetContent>
                         </Sheet>
@@ -364,20 +329,21 @@ const Navbar1 = ({
     );
 };
 
+// Reusable Sub Menu Item Renderers
 const renderMenuItem = (item) => {
     if (item.items) {
         return (
             <NavigationMenuItem key={item.title}>
-                <NavigationMenuTrigger className="text-black bg-transparent">
+                <NavigationMenuTrigger className="text-black bg-transparent font-inter">
                     {item.title}
                 </NavigationMenuTrigger>
-                <NavigationMenuContent className=" text-black h-[180px]">
+                <NavigationMenuContent className="text-black h-[180px]">
                     <div
                         className={`grid gap-3 p-4 h-full ${item.title === "Features"
-                            ? "grid-cols-5 w-[1000px]"
-                            : item.title === "FAQ"
-                                ? "grid-cols-3 w-[800px]"
-                                : "grid-cols-3 w-[600px]"
+                                ? "grid-cols-5 w-[1000px]"
+                                : item.title === "FAQ"
+                                    ? "grid-cols-3 w-[800px]"
+                                    : "grid-cols-3 w-[600px]"
                             }`}
                     >
                         {item.items.map((subItem) => (
@@ -394,7 +360,7 @@ const renderMenuItem = (item) => {
         <NavigationMenuItem key={item.title}>
             <NavigationMenuLink
                 href={item.url}
-                className="group inline-flex h-10 w-max items-center justify-center rounded-md px-4 py-2 text-[15px] font-medium text-black hover:bg-muted"
+                className="group inline-flex h-10 items-center justify-center rounded-md px-4 py-2 text-sm font-medium text-black hover:bg-muted"
             >
                 {item.title}
             </NavigationMenuLink>
@@ -406,7 +372,7 @@ const renderMobileMenuItem = (item) => {
     if (item.items) {
         return (
             <AccordionItem key={item.title} value={item.title} className="border-b-0">
-                <AccordionTrigger className="text-md py-0 font-semibold text-black hover:no-underline">
+                <AccordionTrigger className="text-md font-semibold text-black hover:no-underline">
                     {item.title}
                 </AccordionTrigger>
                 <AccordionContent className="mt-2">
@@ -418,33 +384,25 @@ const renderMobileMenuItem = (item) => {
         );
     }
     return (
-        <a
-            key={item.title}
-            href={item.url}
-            className="text-md font-semibold text-black"
-        >
+        <a key={item.title} href={item.url} className="text-md font-semibold text-black">
             {item.title}
         </a>
     );
 };
 
-const SubMenuLink = ({ item }) => {
-    return (
-        <a
-            className="flex rounded-md p-3 leading-none no-underline transition-colors outline-none select-none hover:bg-[linear-gradient(135deg,_#e3effc,_#f3faff)] hover:text-black h-full flex-col gap-2 text-center justify-center text-black"
-            href={item.url}
-        >
-            <div className="self-center">{item.icon}</div>
-            <div className="text-center">
-                <div className="text-sm font-semibold">{item.title}</div>
-                {item.description && (
-                    <p className="text-xs leading-snug mt-1 text-gray-600">
-                        {item.description}
-                    </p>
-                )}
-            </div>
-        </a>
-    );
-};
+const SubMenuLink = ({ item }) => (
+    <a
+        href={item.url}
+        className="flex flex-col justify-center text-center gap-2 rounded-md p-3 leading-none transition-colors text-black hover:bg-[linear-gradient(135deg,_#e3effc,_#f3faff)]"
+    >
+        <div className="self-center">{item.icon}</div>
+        <div>
+            <div className="text-sm font-semibold">{item.title}</div>
+            {item.description && (
+                <p className="text-xs text-gray-600 mt-1">{item.description}</p>
+            )}
+        </div>
+    </a>
+);
 
 export default Navbar1;

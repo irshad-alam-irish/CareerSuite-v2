@@ -2,7 +2,7 @@ import { Mail } from "lucide-react";
 
 export default function ContactUs() {
     return (
-        <section className="bg-[#F4F8FA] text-[#1e1e2f] py-24 px-6 md:px-0 font-sans">
+        <section id="contact" className="bg-[#F4F8FA] text-[#1e1e2f] py-24 px-6 md:px-0 font-sans">
             <div className="max-w-6xl mx-auto bg-white rounded-2xl shadow-md p-8 md:p-16 grid grid-cols-1 md:grid-cols-2 gap-12 items-start">
                 {/* LEFT SIDE */}
                 <div className="space-y-6">
